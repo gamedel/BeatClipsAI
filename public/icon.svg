@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BeatClipsAI icon">
+  <rect width="512" height="512" rx="96" fill="#c026d3"/>
+  <rect x="120" y="120" width="272" height="272" rx="48" fill="#09090b"/>
+  <path d="M192 332V180h40l88 96v-96h40v152h-40l-88-96v96z" fill="#ffffff"/>
+</svg>

@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum JobStatus {
+  queued
+  running
+  uploading
+  done
+  failed
+}
+
+model User {
+  id             String         @id @default(cuid())
+  email          String?        @unique
+  creditsBalance Int            @default(0)
+  createdAt      DateTime       @default(now())
+  isAdmin        Boolean        @default(false)
+  jobs           Job[]
+  ledgerEntries  CreditLedger[]
+}
+
+model Job {
+  id             String    @id @default(cuid())
+  userId         String
+  user           User      @relation(fields: [userId], references: [id])
+  status         JobStatus @default(queued)
+  prompt         String
+  seed           Int?
+  inputImageUrl  String
+  inputAudioUrl  String?
+  durationSec    Int       @default(5)
+  resolution     String    @default("720p")
+  provider       String    @default("atlascloud")
+  providerJobId  String?
+  outputVideoUrl String?
+  costCredits    Int       @default(25)
+  errorMessage   String?
+  logs           String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  ledgerEntries  CreditLedger[]
+}
+
+model CreditLedger {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  delta     Int
+  reason    String
+  jobId     String?
+  job       Job?     @relation(fields: [jobId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Template {
+  id              String   @id @default(cuid())
+  name            String
+  description     String
+  genre           String
+  previewImageUrl String
+  audioUrl        String
+  promptPrefix    String
+  defaultSeed     Int
+  createdAt       DateTime @default(now())
+}
+
+model CreditPackage {
+  id          String   @id @default(cuid())
+  name        String
+  credits     Int
+  priceRub    Int
+  description String
+  createdAt   DateTime @default(now())
+}
+
+model RateLimitEvent {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  createdAt DateTime @default(now())
+
+  @@index([userId, action, createdAt])
+}
