@@ -16,9 +16,14 @@ const demoJobs: DemoJob[] = [
   { id: 'job_demo_002', status: 'running', prompt: 'Street dance clip, phonk vibe', createdAt: new Date().toISOString() },
 ];
 
+function isGithubPagesHost() {
+  if (typeof window === 'undefined') return false;
+  return window.location.hostname.endsWith('github.io');
+}
+
 export default function AdminDemoPage() {
   const params = useSearchParams();
-  const isEnabled = process.env.NEXT_PUBLIC_GITHUB_DEMO_ADMIN === 'true';
+  const isEnabled = process.env.NEXT_PUBLIC_GITHUB_DEMO_ADMIN === 'true' || isGithubPagesHost();
   const expectedKey = process.env.NEXT_PUBLIC_DEMO_ADMIN_KEY ?? 'demo-admin';
   const provided = params.get('key') ?? '';
 

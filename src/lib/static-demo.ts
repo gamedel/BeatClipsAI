@@ -56,8 +56,13 @@ function write<T>(key: string, value: T) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
+function isGithubPagesHost() {
+  if (typeof window === 'undefined') return false;
+  return window.location.hostname.endsWith('github.io');
+}
+
 export function isStaticDemoMode() {
-  return process.env.NEXT_PUBLIC_STATIC_DEMO_MODE === 'true';
+  return process.env.NEXT_PUBLIC_STATIC_DEMO_MODE === 'true' || isGithubPagesHost();
 }
 
 export function getTemplates(): DemoTemplate[] {

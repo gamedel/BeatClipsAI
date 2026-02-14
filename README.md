@@ -50,6 +50,8 @@ NEXT_PUBLIC_DEMO_ADMIN_KEY=demo-admin
 После деплоя откройте:
 `/admin-demo?key=demo-admin`
 
+На `*.github.io` эта demo-админка тоже включается автоматически.
+
 Важно: это только фронтовая демо-страница. Реальные `/admin` и `/api/admin/*` требуют серверный рантайм (Vercel/Render/Railway/VPS).
 
 
