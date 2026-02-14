@@ -1,0 +1,11 @@
+{
+  "name": "BeatClipsAI",
+  "short_name": "BeatClipsAI",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#c026d3",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
